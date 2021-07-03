@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout:: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:object="${product}" action="/create" method="post">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputEmail4">Id</label>
+            <input type="number" class="form-control" th:field="*{id}" id="inputEmail4" placeholder="id">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputEmail5">Category</label>
+            <input type="text" class="form-control" th:field="*{category}" id="inputEmail5" placeholder="Category">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputEmail6">Name</label>
+            <input type="text" class="form-control" th:field="*{name}"  id="inputEmail6" placeholder="Name">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputEmail7">Status</label>
+            <input type="text" class="form-control" th:field="*{status}" id="inputEmail7" placeholder="Status">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Add now</button>
+</form>
+
+<footer th:replace="layout:: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout:: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3 th:if="${msg}" th:text="${msg}" style="color: red"></h3>
+<a href="/showCreate" class="btn btn-info">Create</a>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Category</th>
+        <th scope="col">Status</th>
+        <th scope="col" colspan="2">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product:${listProduct}">
+        <td th:text="${product.id}"></td>
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.category}"></td>
+        <td th:text="${product.status}"></td>
+        <td><a th:href="@{/{id}/edit(id=${product.id})}" class="btn btn-primary">Edit</a></td>
+        <td><a th:href="@{/{id}/delete(id=${product.id})}" onclick="return confirm('Are you sure to delete?')" class="btn btn-danger">Delete</a></td>
+    </tr>
+    </tbody>
+</table>
+<footer th:replace="layout:: footer"></footer>
+</body>
+</html>
