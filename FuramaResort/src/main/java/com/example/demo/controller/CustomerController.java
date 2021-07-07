@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.bean.Customer;
 import com.example.demo.bean.CustomerType;
+import com.example.demo.bean.User;
 import com.example.demo.service.CustomerService;
 import com.example.demo.service.TypeOfCustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +11,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping(value = "/customer")
@@ -22,6 +26,11 @@ public class CustomerController {
 
     @Autowired
     private TypeOfCustomerService typeOfCustomerService;
+
+    @ModelAttribute("user")
+    public User getUserName(@SessionAttribute("user") User user){
+        return user;
+    }
 
     @ModelAttribute("typeCus")
     public Iterable<CustomerType> typeCus(){
@@ -46,12 +55,16 @@ public class CustomerController {
     }
 
     @PostMapping(value = "/create")
-    public String saveCustomer(@ModelAttribute Customer customer, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("msg", "Create customer: " + customer.getCustomerName() + " success.");
-        String idCus = "KH-"+((int)(Math.random()*10000)) ;
-        customer.setCustomerId(idCus);
-        customerService.save(customer);
-        return "redirect:/customer/show";
+    public String saveCustomer(@Valid @ModelAttribute("customer") Customer customer, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasFieldErrors()) {
+            return "customer/createCustomer";
+        }else {
+            redirectAttributes.addFlashAttribute("msg", "Create customer: " + customer.getCustomerName() + " success.");
+            String idCus = "KH-"+((int)(Math.random()*10000)) ;
+            customer.setCustomerId(idCus);
+            customerService.save(customer);
+            return "redirect:/customer/show";
+        }
     }
 
     @GetMapping(value = "/edit/{id}")

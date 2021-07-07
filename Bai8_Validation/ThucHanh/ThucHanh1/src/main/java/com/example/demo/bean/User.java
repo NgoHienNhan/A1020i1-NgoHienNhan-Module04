@@ -1,13 +1,15 @@
 package com.example.demo.bean;
 
 
+import com.example.demo.NotEmptyCustome;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 public class User {
 
-    @NotEmpty
+    @NotEmptyCustome
     @Size(min = 2, max = 30)
     private String name;
 

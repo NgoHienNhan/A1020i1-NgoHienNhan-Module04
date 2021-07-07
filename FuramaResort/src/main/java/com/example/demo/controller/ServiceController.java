@@ -1,9 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.bean.Customer;
-import com.example.demo.bean.RentType;
-import com.example.demo.bean.Service;
-import com.example.demo.bean.ServiceType;
+import com.example.demo.bean.*;
 import com.example.demo.service.RentTypeService;
 import com.example.demo.service.ServiceService;
 import com.example.demo.service.ServiceTypeService;
@@ -13,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -47,6 +46,11 @@ public class ServiceController {
         return serviceTypeService.findAll();
     }
 
+    @ModelAttribute("user")
+    public User getUserName(@SessionAttribute("user") User user){
+        return user;
+    }
+
     @GetMapping(value = "/showAll")
     public ModelAndView showAll(@PageableDefault(value = 9) Pageable pageable) {
         Page<Service> services = serviceService.findAll(pageable);
@@ -60,7 +64,7 @@ public class ServiceController {
     }
 
     @GetMapping(value = "/showDetail/{id}")
-    public String showDetail(@PathVariable Integer id, Model model) {
+    public String showDetail(@PathVariable String id, Model model) {
         Service service = serviceService.findById(id);
         model.addAttribute("service", service);
         return "service/showDetailService";
@@ -73,7 +77,10 @@ public class ServiceController {
     }
 
     @PostMapping(value = "/create")
-    public String save(@ModelAttribute Service service, @RequestParam("img") MultipartFile img, RedirectAttributes redirectAttributes) {
+    public String save(@Validated @ModelAttribute Service service, BindingResult bindingResult, @RequestParam("img") MultipartFile img, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasFieldErrors()){
+            return "service/createService";
+        }
         if (img.isEmpty()){
             service.setLinkImg("");
         }
@@ -86,12 +93,14 @@ public class ServiceController {
             e.printStackTrace();
         }
         redirectAttributes.addFlashAttribute("msg", "Create service : " + service.getServiceName() + " success.");
+        String idService = "DV-"+((int)(Math.random()*10000)) ;
+        service.setServiceId(idService);
         serviceService.save(service);
         return "redirect:/service/showAll";
     }
 
     @GetMapping(value = "/update/{id}")
-    public String showPageUpdate(@PathVariable Integer id, Model model) {
+    public String showPageUpdate(@PathVariable String id, Model model) {
         Service service = serviceService.findById(id);
         model.addAttribute("service", service);
         return "service/updateService";
@@ -105,7 +114,7 @@ public class ServiceController {
     }
 
     @GetMapping(value = "/delete/{id}")
-    public String deleteCustomer(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+    public String deleteCustomer(@PathVariable String id, RedirectAttributes redirectAttributes) {
         Service service = serviceService.findById(id);
         redirectAttributes.addFlashAttribute("msg", "Delete customer: " + service.getServiceName() + "success.");
         serviceService.delete(service);

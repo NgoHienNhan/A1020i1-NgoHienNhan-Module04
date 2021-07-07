@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -35,6 +38,11 @@ public class EmployeeController {
 
     @Autowired
     private UserService userService;
+
+    @ModelAttribute("user")
+    public User getUserName(@SessionAttribute("user") User user){
+        return user;
+    }
 
     @ModelAttribute("education")
     public Iterable<EducationDegree> educationDegrees() {
@@ -69,32 +77,39 @@ public class EmployeeController {
     }
 
     @PostMapping(value = "/create")
-    public String saveEmployee(@ModelAttribute EmployeeUser employeeUser, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("msg", "Create employee: " + employeeUser.getName() + " success.");
+    public String saveEmployee(@Validated @ModelAttribute EmployeeUser employeeUser, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasFieldErrors()){
+            return "employee/createEmployee";
+        }else {
+            redirectAttributes.addFlashAttribute("msg", "Create employee: " + employeeUser.getName() + " success.");
 
-        User user = new User();
+            User user = new User();
+            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+            String pass = bCryptPasswordEncoder.encode(employeeUser.getPassWord());
 
-        if (employeeUser.getPosition().getName().equals("Giám đốc") || employeeUser.getPosition().getName().equals("Quản lý")) {
-            Set<Role> roles = new HashSet<>();
-            roles.add(roleService.findById(1));
-            roles.add(roleService.findById(2));
-            user = new User(employeeUser.getUserName(), employeeUser.getPassWord(), roles);
-        } else {
-            Set<Role> roles = new HashSet<>();
-            roles.add(roleService.findById(1));
-            user = new User(employeeUser.getUserName(), employeeUser.getPassWord(), roles);
+
+            if (employeeUser.getPosition().getName().equals("Giám đốc") || employeeUser.getPosition().getName().equals("Quản lý")) {
+                Set<Role> roles = new HashSet<>();
+                roles.add(roleService.findById(1));
+                roles.add(roleService.findById(2));
+                user = new User(employeeUser.getUserName(), pass, roles);
+            } else {
+                Set<Role> roles = new HashSet<>();
+                roles.add(roleService.findById(1));
+                user = new User(employeeUser.getUserName(), pass, roles);
+            }
+
+
+            String idEmployee = "NV-" + ((int) (Math.random() * 10000));
+            Employee employee = new Employee(idEmployee, employeeUser.getName(), employeeUser.getBirthday(), employeeUser.getIdCard(),
+                    employeeUser.getSalary(), employeeUser.getPhone(), employeeUser.getEmail(), employeeUser.getAddress(),
+                    employeeUser.getPosition(), employeeUser.getEducationDegree(), employeeUser.getDivision(), user);
+
+            userService.save(user);
+            employeeService.save(employee);
+
+            return "redirect:/employee/show";
         }
-
-
-        String idEmployee = "NV-" + ((int) (Math.random() * 10000));
-        Employee employee = new Employee(idEmployee, employeeUser.getName(), employeeUser.getBirthday(), employeeUser.getIdCard(),
-                employeeUser.getSalary(), employeeUser.getPhone(), employeeUser.getEmail(), employeeUser.getAddress(),
-                employeeUser.getPosition(), employeeUser.getEducationDegree(), employeeUser.getDivision(), user);
-
-        userService.save(user);
-        employeeService.save(employee);
-
-        return "redirect:/employee/show";
     }
 
     @GetMapping(value = "/update/{id}")

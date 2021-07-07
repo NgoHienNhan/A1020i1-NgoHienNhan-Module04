@@ -10,39 +10,40 @@
         <a class="navbar-brand" href="#"><img src="/img/logo.png" alt="..." class="logo"></a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto nav-links">
-                <li class="nav-links-item"><a class="active text-dark" href="">HOME</a></li>
+                <li class="nav-links-item"><a class="active text-dark" href="/home">HOME</a></li>
                 <li class="nav-links-item dropdown-custom">
                     <a class="dropdown-wrap text-dark" href="">EMPLOYEE</a>
                     <div class="dropdown-content">
-                        <a class="dropdown-item-custom text-dark" href="#">CREATE</a>
-                        <a class="dropdown-item-custom text-dark" href="#">SHOW LIST</a>
+                        <a class="dropdown-item-custom text-dark" th:href="@{/employee/create}">CREATE</a>
+                        <a class="dropdown-item-custom text-dark" th:href="@{/employee/show}">SHOW LIST</a>
                     </div>
                 </li>
                 <li class="nav-links-item dropdown-custom">
                     <a class="dropdown-wrap text-dark" href="">CUSTOMER</a>
                     <div class="dropdown-content">
-                        <a class="dropdown-item-custom text-dark" href="#">CREATE</a>
-                        <a class="dropdown-item-custom text-dark" href="#">SHOW LIST</a>
+                        <a class="dropdown-item-custom text-dark" th:href="@{/customer/create}">CREATE</a>
+                        <a class="dropdown-item-custom text-dark" th:href="@{/customer/show}">SHOW LIST</a>
                     </div>
                 </li>
                 <li class="nav-links-item dropdown-custom">
                     <a class="dropdown-wrap text-dark" href="">SERVICE</a>
                     <div class="dropdown-content">
-                        <a class="dropdown-item-custom text-dark" href="#">CREATE</a>
-                        <a class="dropdown-item-custom text-dark" href="#">SHOW LIST</a>
+                        <a class="dropdown-item-custom text-dark" th:href="@{/service/create}">CREATE</a>
+                        <a class="dropdown-item-custom text-dark" th:href="@{/service/showAll}">SHOW LIST</a>
                     </div>
                 </li>
                 <li class="nav-links-item dropdown-custom">
                     <a class="dropdown-wrap text-dark" href="">CONTRACT</a>
                     <div class="dropdown-content">
-                        <a class="dropdown-item-custom text-dark" href="#">CREATE CONTRACT</a>
-                        <a class="dropdown-item-custom text-dark" href="#">CREATE CONTRACT DETAIL</a>
+                        <a th:href="@{/contract/createContract}" class="dropdown-item-custom text-dark">CREATE CONTRACT</a>
+                        <a th:href="@{/contract/createContractDetail}" class="dropdown-item-custom text-dark">CREATE CONTRACT DETAIL</a>
+                        <a th:href="@{/contract/show}" class="dropdown-item-custom text-dark">LIST USE SERVICE</a>
                     </div>
                 </li>
             </ul>
             <a href="" class="user text-decoration-none  my-2 my-lg-0">
                 <i style="color: #7abaff" class="bi bi-person-circle icon-user"></i>
-                <span class="text-dark text-decoration-none">NGUYEN VAN A</span>
+                <span class="text-dark text-decoration-none" th:text="${user.userName}"></span>
             </a>
         </div>
     </nav>

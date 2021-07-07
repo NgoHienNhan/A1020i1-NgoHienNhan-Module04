@@ -20,13 +20,11 @@ public class UserController {
     }
 
     @PostMapping("/validateUser")
-    public ModelAndView checkValidation(@Validated @ModelAttribute("user") User user, BindingResult bindingResult) {
+    public String checkValidation(@Validated @ModelAttribute("user") User user, BindingResult bindingResult) {
         if (bindingResult.hasFieldErrors()) {
-            ModelAndView modelAndView = new ModelAndView("index");
-            return modelAndView;
+            return "index";
         }
-        ModelAndView modelAndView = new ModelAndView("result");
-        return modelAndView;
+        return "result";
     }
 
 }
