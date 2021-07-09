@@ -40,7 +40,7 @@ public class LoginLogoutController {
     @RequestMapping(value = "/loginSuccess", method = RequestMethod.GET)
     public String loginSuccess(@ModelAttribute("employee") EmployeeUsing employeeUsing, RedirectAttributes attributes, Principal principal,
                                Model model) {
-        // Sau khi user login thanh cong se co principal
+
         String userName = principal.getName();
         User user = userService.findById(userName);
         Employee employee = employeeService.findByUser(user);

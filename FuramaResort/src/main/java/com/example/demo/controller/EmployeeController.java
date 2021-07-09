@@ -88,15 +88,13 @@ public class EmployeeController {
             String pass = bCryptPasswordEncoder.encode(employeeUser.getPassWord());
 
 
+            Set<Role> roles = new HashSet<>();
             if (employeeUser.getPosition().getName().equals("Giám đốc") || employeeUser.getPosition().getName().equals("Quản lý")) {
-                Set<Role> roles = new HashSet<>();
                 roles.add(roleService.findById(1));
-                user = new User(employeeUser.getUserName(), pass, roles);
             } else {
-                Set<Role> roles = new HashSet<>();
                 roles.add(roleService.findById(2));
-                user = new User(employeeUser.getUserName(), pass, roles);
             }
+            user = new User(employeeUser.getUserName(), pass, roles);
 
 
             String idEmployee = "NV-" + ((int) (Math.random() * 10000));
