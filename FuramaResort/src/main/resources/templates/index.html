@@ -56,10 +56,17 @@
                     </nav>
                 </div>
                 <div class="col-lg-3">
-                    <a href="" class="user text-decoration-none">
-                        <i class="bi bi-person-circle icon-user"></i>
-                        <span class="text-white text-decoration-none" th:text="${user.userName}"></span>
-                    </a>
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <a href="" class="user text-decoration-none">
+                                <i class="bi bi-person-circle icon-user"></i>
+                                <span class="text-white text-decoration-none" th:text="${employee.getName()}"></span>
+                            </a>
+                        </div>
+                        <div class="col-lg-2">
+                            <a class="btn btn-primary" style="position: relative ;top: 20%;text-decoration: none" href="/logout">Logout</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

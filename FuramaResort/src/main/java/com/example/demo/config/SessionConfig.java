@@ -1,5 +1,6 @@
 package com.example.demo.config;
 
+import com.example.demo.bean.EmployeeUsing;
 import com.example.demo.bean.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,8 +25,8 @@ public class SessionConfig implements WebMvcConfigurer {
 
     @Bean
     @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
-    public User user() {
-        return new User();
+    public EmployeeUsing employeeUsing(){
+        return new EmployeeUsing();
     }
 
     @Bean

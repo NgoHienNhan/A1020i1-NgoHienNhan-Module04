@@ -39,9 +39,9 @@ public class EmployeeController {
     @Autowired
     private UserService userService;
 
-    @ModelAttribute("user")
-    public User getUserName(@SessionAttribute("user") User user){
-        return user;
+    @ModelAttribute("employeeUsing")
+    public Employee getUserName(@SessionAttribute("employee") Employee employee){
+        return employee;
     }
 
     @ModelAttribute("education")
@@ -91,11 +91,10 @@ public class EmployeeController {
             if (employeeUser.getPosition().getName().equals("Giám đốc") || employeeUser.getPosition().getName().equals("Quản lý")) {
                 Set<Role> roles = new HashSet<>();
                 roles.add(roleService.findById(1));
-                roles.add(roleService.findById(2));
                 user = new User(employeeUser.getUserName(), pass, roles);
             } else {
                 Set<Role> roles = new HashSet<>();
-                roles.add(roleService.findById(1));
+                roles.add(roleService.findById(2));
                 user = new User(employeeUser.getUserName(), pass, roles);
             }
 

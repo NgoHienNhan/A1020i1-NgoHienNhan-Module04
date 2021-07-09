@@ -12,6 +12,11 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
+    public User findById(String id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    @Override
     public Iterable<User> findAll() {
         return userRepository.findAll();
     }

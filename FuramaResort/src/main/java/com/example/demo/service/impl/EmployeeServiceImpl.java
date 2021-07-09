@@ -2,6 +2,7 @@ package com.example.demo.service.impl;
 
 
 import com.example.demo.bean.Employee;
+import com.example.demo.bean.User;
 import com.example.demo.repository.EmployeeRepository;
 import com.example.demo.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Page<Employee> findAll(Pageable pageable) {
         return employeeRepository.findAll(pageable);
+    }
+
+    @Override
+    public Employee findByUser(User user) {
+        return employeeRepository.findByUser(user);
     }
 
     @Override

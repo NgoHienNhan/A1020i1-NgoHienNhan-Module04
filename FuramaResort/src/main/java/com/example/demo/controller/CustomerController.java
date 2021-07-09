@@ -1,8 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.bean.Customer;
-import com.example.demo.bean.CustomerType;
-import com.example.demo.bean.User;
+import com.example.demo.bean.*;
 import com.example.demo.service.CustomerService;
 import com.example.demo.service.TypeOfCustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +25,9 @@ public class CustomerController {
     @Autowired
     private TypeOfCustomerService typeOfCustomerService;
 
-    @ModelAttribute("user")
-    public User getUserName(@SessionAttribute("user") User user){
-        return user;
+    @ModelAttribute("employeeUsing")
+    public Employee getUserName(@SessionAttribute("employee") Employee employee){
+        return employee;
     }
 
     @ModelAttribute("typeCus")

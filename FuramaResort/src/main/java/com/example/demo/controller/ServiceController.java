@@ -46,9 +46,9 @@ public class ServiceController {
         return serviceTypeService.findAll();
     }
 
-    @ModelAttribute("user")
-    public User getUserName(@SessionAttribute("user") User user){
-        return user;
+    @ModelAttribute("employeeUsing")
+    public Employee getUserName(@SessionAttribute("employee") Employee employee){
+        return employee;
     }
 
     @GetMapping(value = "/showAll")
