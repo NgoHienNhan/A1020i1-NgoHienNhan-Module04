@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="39302513-35cc-4237-ad8d-8faaff0c65e9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../Bai7_Spring_Data_Repository/BaiTap/blog/src/main/java/com/example/demo/controller/BlogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Bai7_Spring_Data_Repository/BaiTap/blog/src/main/java/com/example/demo/controller/BlogController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/DemoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/DemoApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/config/SessionConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/config/SessionConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/config/WebMvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/config/WebMvcConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/config/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/controller/ContractController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/controller/ContractController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/controller/CustomerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/controller/EmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/controller/EmployeeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/controller/LoginLogoutController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/controller/LoginLogoutController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/controller/ServiceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/controller/ServiceController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/repository/CustomerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/repository/CustomerRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/repository/EmployeeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/repository/EmployeeRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/repository/ServiceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/repository/ServiceRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/service/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/service/CustomerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/service/EmployeeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/service/EmployeeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/service/ServiceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/service/ServiceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/service/impl/CustomerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/service/impl/CustomerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/service/impl/EmployeeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/service/impl/EmployeeServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/service/impl/ServiceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/service/impl/ServiceServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/java/com/example/demo/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/resources/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/resources/static/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/resources/templates/customer/showCustomer.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/resources/templates/customer/showCustomer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/resources/templates/employee/createEmployee.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/resources/templates/employee/createEmployee.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/resources/templates/employee/showEmployee.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/resources/templates/employee/showEmployee.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/resources/templates/headerAndFooter.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/resources/templates/headerAndFooter.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/resources/templates/service/createService.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/resources/templates/service/createService.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResort/src/main/resources/templates/service/showAllService.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResort/src/main/resources/templates/service/showAllService.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FuramaResortBackup/src/main/java/com/example/demo/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../FuramaResortBackup/src/main/java/com/example/demo/config/WebSecurityConfig.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="1vCZnjNJDr9cwtI4yny4ESYuAZt" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../FuramaResort" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+  </component>
+  <component name="RunManager">
+    <configuration name="DemoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="demo.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.demo.DemoApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="39302513-35cc-4237-ad8d-8faaff0c65e9" name="Default Changelist" comment="" />
+      <created>1626068199298</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1626068199298</updated>
+      <workItem from="1626068216615" duration="2264000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1626070474369">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1626070474369" />
+    <state width="1323" height="223" key="GridCell.Tab.0.bottom" timestamp="1626070497979">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="223" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1626070497979" />
+    <state width="1323" height="223" key="GridCell.Tab.0.center" timestamp="1626070497979">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="223" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1626070497979" />
+    <state width="1323" height="223" key="GridCell.Tab.0.left" timestamp="1626070497979">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="223" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1626070497979" />
+    <state width="1323" height="223" key="GridCell.Tab.0.right" timestamp="1626070497979">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="223" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1626070497979" />
+    <state width="1323" height="223" key="GridCell.Tab.1.bottom" timestamp="1626070497980">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="223" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1626070497980" />
+    <state width="1323" height="223" key="GridCell.Tab.1.center" timestamp="1626070497979">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="223" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1626070497979" />
+    <state width="1323" height="223" key="GridCell.Tab.1.left" timestamp="1626070497979">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="223" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1626070497979" />
+    <state width="1323" height="223" key="GridCell.Tab.1.right" timestamp="1626070497979">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="223" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1626070497979" />
+    <state width="1323" height="223" key="GridCell.Tab.2.bottom" timestamp="1626070497980">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="223" key="GridCell.Tab.2.bottom/0.0.1366.728@0.0.1366.728" timestamp="1626070497980" />
+    <state width="1323" height="223" key="GridCell.Tab.2.center" timestamp="1626070497980">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="223" key="GridCell.Tab.2.center/0.0.1366.728@0.0.1366.728" timestamp="1626070497980" />
+    <state width="1323" height="223" key="GridCell.Tab.2.left" timestamp="1626070497980">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="223" key="GridCell.Tab.2.left/0.0.1366.728@0.0.1366.728" timestamp="1626070497980" />
+    <state width="1323" height="223" key="GridCell.Tab.2.right" timestamp="1626070497980">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="223" key="GridCell.Tab.2.right/0.0.1366.728@0.0.1366.728" timestamp="1626070497980" />
+    <state x="65" y="25" key="new project wizard" timestamp="1626070494860">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="65" y="25" key="new project wizard/0.0.1366.728@0.0.1366.728" timestamp="1626070494860" />
+  </component>
+</project>

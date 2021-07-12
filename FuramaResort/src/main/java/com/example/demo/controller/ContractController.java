@@ -55,7 +55,7 @@ public class ContractController{
     }
 
     @ModelAttribute("employeeUsing")
-    public Employee getUserName(@SessionAttribute("employee") Employee employee){
+    public Employee getUserName(@SessionAttribute(required = false,name = "employee") EmployeeUsing employee){
         return employee;
     }
 

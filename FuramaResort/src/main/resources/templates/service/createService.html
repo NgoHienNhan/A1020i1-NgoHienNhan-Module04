@@ -76,9 +76,9 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlFile1">Đăng ảnh</label>
-                    <input type="file" th:field="*{linkImg}" name="img" class="form-control-file" accept="image/x-png,image/gif,image/jpeg" id="exampleFormControlFile1">
-                    <label for="exampleFormControlFile1" style="color: palevioletred" th:if="${#fields.hasErrors('linkImg')}" th:errors="*{linkImg}"></label>
+                    <label for="img">Đăng ảnh</label>
+                    <input type="file" name="img" class="form-control-file" accept="image/x-png,image/gif,image/jpeg" id="img">
+                    <label for="img" style="color: palevioletred" th:text="${msg}"></label>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

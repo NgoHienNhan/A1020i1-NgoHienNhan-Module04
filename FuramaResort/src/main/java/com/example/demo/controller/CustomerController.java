@@ -26,12 +26,12 @@ public class CustomerController {
     private TypeOfCustomerService typeOfCustomerService;
 
     @ModelAttribute("employeeUsing")
-    public Employee getUserName(@SessionAttribute("employee") Employee employee){
+    public Employee getUserName(@SessionAttribute(required = false,name = "employee") EmployeeUsing employee){
         return employee;
     }
 
     @ModelAttribute("typeCus")
-    public Iterable<CustomerType> typeCus(){
+    public Iterable<CustomerType> typeCus() {
         return typeOfCustomerService.findAll();
     }
 
@@ -46,6 +46,17 @@ public class CustomerController {
         return modelAndView;
     }
 
+    @GetMapping(value = "/search")
+    public ModelAndView showListSearch(@PageableDefault(value = 10) Pageable pageable, @RequestParam("search") String name) {
+        Page<Customer> customers = customerService.findByName(pageable, "%" + name + "%");
+        ModelAndView modelAndView = new ModelAndView("customer/showCustomer");
+        modelAndView.addObject("customers", customers);
+        if (customers == null) {
+            modelAndView.addObject("msg", "Not found.");
+        }
+        return modelAndView;
+    }
+
     @GetMapping(value = "/create")
     public String displayPageCreate(Model model) {
         model.addAttribute("customer", new Customer());
@@ -56,9 +67,9 @@ public class CustomerController {
     public String saveCustomer(@Valid @ModelAttribute("customer") Customer customer, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasFieldErrors()) {
             return "customer/createCustomer";
-        }else {
+        } else {
             redirectAttributes.addFlashAttribute("msg", "Create customer: " + customer.getCustomerName() + " success.");
-            String idCus = "KH-"+((int)(Math.random()*10000)) ;
+            String idCus = "KH-" + ((int) (Math.random() * 10000));
             customer.setCustomerId(idCus);
             customerService.save(customer);
             return "redirect:/customer/show";
@@ -73,15 +84,15 @@ public class CustomerController {
 
     @PostMapping(value = "/edit")
     public String updateCustomer(@ModelAttribute Customer customer, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("msg", "Update customer: "+ customer.getCustomerName() + " success.");
+        redirectAttributes.addFlashAttribute("msg", "Update customer: " + customer.getCustomerName() + " success.");
         customerService.save(customer);
         return "redirect:/customer/show";
     }
 
     @GetMapping(value = "/delete/{id}")
-    public String deleteCustomer(@PathVariable String id, RedirectAttributes redirectAttributes){
+    public String deleteCustomer(@PathVariable String id, RedirectAttributes redirectAttributes) {
         Customer customer = customerService.findById(id);
-        redirectAttributes.addFlashAttribute("msg","Delete customer: "+ customer.getCustomerName()+ "success.");
+        redirectAttributes.addFlashAttribute("msg", "Delete customer: " + customer.getCustomerName() + "success.");
         customerService.delete(customer);
         return "redirect:/customer/show";
     }

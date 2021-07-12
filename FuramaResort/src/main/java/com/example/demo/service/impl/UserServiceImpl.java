@@ -12,6 +12,11 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
+    public Boolean checkUserName(String userName) {
+        return userRepository.existsUserByUserName(userName);
+    }
+
+    @Override
     public User findById(String id) {
         return userRepository.findById(id).orElse(null);
     }

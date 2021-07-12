@@ -18,6 +18,11 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
+    public Page<Service> findByName(Pageable pageable, String name) {
+        return serviceRepository.findByServiceNameLike(pageable, name);
+    }
+
+    @Override
     public Iterable<Service> findAllNotPage() {
         return serviceRepository.findAll();
     }

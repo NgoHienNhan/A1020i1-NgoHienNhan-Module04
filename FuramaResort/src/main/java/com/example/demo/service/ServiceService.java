@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 public interface ServiceService{
     Page<Service> findAll(Pageable pageable);
 
+    Page<Service> findByName(Pageable pageable, String name);
+
     Iterable<Service> findAllNotPage();
 
     Service findById(String id);

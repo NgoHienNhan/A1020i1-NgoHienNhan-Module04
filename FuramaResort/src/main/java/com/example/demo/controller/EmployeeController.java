@@ -40,7 +40,7 @@ public class EmployeeController {
     private UserService userService;
 
     @ModelAttribute("employeeUsing")
-    public Employee getUserName(@SessionAttribute("employee") Employee employee){
+    public Employee getUserName(@SessionAttribute(required = false,name = "employee") EmployeeUsing employee){
         return employee;
     }
 
@@ -70,6 +70,17 @@ public class EmployeeController {
         return modelAndView;
     }
 
+    @GetMapping(value = "/search")
+    public ModelAndView showSearch(@PageableDefault(value = 10) Pageable pageable, @RequestParam("search") String name) {
+        Page<Employee> employees = employeeService.findByName(pageable, "%" + name + "%");
+        ModelAndView modelAndView = new ModelAndView("employee/showEmployee");
+        if (employees.getContent().size() == 0) {
+            modelAndView.addObject("msg", "Not found.");
+        }
+        modelAndView.addObject("employees", employees);
+        return modelAndView;
+    }
+
     @GetMapping(value = "/create")
     public String showPageCreateEmployee(Model model) {
         model.addAttribute("employeeUser", new EmployeeUser());
@@ -77,35 +88,41 @@ public class EmployeeController {
     }
 
     @PostMapping(value = "/create")
-    public String saveEmployee(@Validated @ModelAttribute EmployeeUser employeeUser, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasFieldErrors()){
+    public String saveEmployee(@Validated @ModelAttribute EmployeeUser employeeUser, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+        if (bindingResult.hasFieldErrors()) {
             return "employee/createEmployee";
-        }else {
-            redirectAttributes.addFlashAttribute("msg", "Create employee: " + employeeUser.getName() + " success.");
-
-            User user = new User();
-            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-            String pass = bCryptPasswordEncoder.encode(employeeUser.getPassWord());
-
-
-            Set<Role> roles = new HashSet<>();
-            if (employeeUser.getPosition().getName().equals("Giám đốc") || employeeUser.getPosition().getName().equals("Quản lý")) {
-                roles.add(roleService.findById(1));
+        } else {
+            if (userService.checkUserName(employeeUser.getUserName())) {
+                model.addAttribute("msgUserName", "Tên đăng nhập đã tồn tại.");
+                return "employee/createEmployee";
             } else {
-                roles.add(roleService.findById(2));
+                redirectAttributes.addFlashAttribute("msg", "Create employee: " + employeeUser.getName() + " success.");
+
+                new User();
+                User user;
+                BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+                String pass = bCryptPasswordEncoder.encode(employeeUser.getPassWord());
+
+
+                Set<Role> roles = new HashSet<>();
+                if (employeeUser.getPosition().getName().equals("Giám đốc") || employeeUser.getPosition().getName().equals("Quản lý")) {
+                    roles.add(roleService.findById(1));
+                } else {
+                    roles.add(roleService.findById(2));
+                }
+                user = new User(employeeUser.getUserName(), pass, roles);
+
+
+                String idEmployee = "NV-" + ((int) (Math.random() * 10000));
+                Employee employee = new Employee(idEmployee, employeeUser.getName(), employeeUser.getBirthday(), employeeUser.getIdCard(),
+                        employeeUser.getSalary(), employeeUser.getPhone(), employeeUser.getEmail(), employeeUser.getAddress(),
+                        employeeUser.getPosition(), employeeUser.getEducationDegree(), employeeUser.getDivision(), user);
+
+                userService.save(user);
+                employeeService.save(employee);
+
+                return "redirect:/employee/show";
             }
-            user = new User(employeeUser.getUserName(), pass, roles);
-
-
-            String idEmployee = "NV-" + ((int) (Math.random() * 10000));
-            Employee employee = new Employee(idEmployee, employeeUser.getName(), employeeUser.getBirthday(), employeeUser.getIdCard(),
-                    employeeUser.getSalary(), employeeUser.getPhone(), employeeUser.getEmail(), employeeUser.getAddress(),
-                    employeeUser.getPosition(), employeeUser.getEducationDegree(), employeeUser.getDivision(), user);
-
-            userService.save(user);
-            employeeService.save(employee);
-
-            return "redirect:/employee/show";
         }
     }
 

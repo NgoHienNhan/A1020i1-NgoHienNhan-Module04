@@ -20,6 +20,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public Page<Customer> findByName(Pageable pageable, String name) {
+        return customerRepository.findByCustomerNameLike(pageable, name);
+    }
+
+    @Override
     public Iterable<Customer> findAll() {
         return customerRepository.findAll();
     }
