@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="row" th:each="c:${carts}">
+        <div class="col-lg-12">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img th:src="${c.getValue().product.getLinkImg()}" width="100%" height="auto" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${c.getValue().product.getNameProduct()}"></h5>
+                            Price:
+                            <p class="card-text" th:text="${c.getValue().product.getPrice()}"></p>
+                            Quantity:
+                            <p class="card-text" th:text="${c.getValue().getQuantity()}"></p>
+                            <br>
+                            Total:
+                            <p class="card-text" th:text="${total}"></p>
+                            <a th:href="@{/buy/__${c.getValue().product.getId()}__}" class="btn btn-warning">Buy</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/jquery-3.6.0.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

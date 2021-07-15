@@ -1,58 +1,120 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.bean.Cart;
 import com.example.demo.bean.Product;
-import com.example.demo.bean.ProductList;
+import com.example.demo.bean.ProductBuy;
+import com.example.demo.service.ProductBuyService;
+import com.example.demo.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Controller
-@SessionAttributes("Products")
+@SessionAttributes("cart")
 public class ProductController {
+    @Autowired
+    private ProductService productService;
 
-    @ModelAttribute("productArrayList")
-    public ArrayList<Product> setProductList(){
-        Product product = new Product(1,"sp1","giohoachucmung017.jpg",5000);
-        Product product2 = new Product(2,"sp2","140.jpg.300.jpg",5000);
-        Product product3 = new Product(3,"sp3","5062_gio-hoa-hong.jpg",5000);
+    @Autowired
+    private ProductBuyService productBuyService;
 
-        ArrayList<Product> productArrayList = new ArrayList<>();
-        productArrayList.add(product);
-        productArrayList.add(product2);
-        productArrayList.add(product3);
-        return productArrayList;
-    }
-
-
-    @ModelAttribute("products")
-    public ProductList setProduct(){
-        return new ProductList();
+    @ModelAttribute("cart")
+    public HashMap<Long, Cart> setProduct() {
+        return new HashMap<Long, Cart>();
     }
 
     @GetMapping("/")
-    public String showPageIndex (){
+    public String showPageIndex(Model model) {
+        model.addAttribute("products", productService.findAll());
         return "index";
     }
 
-    @GetMapping("/add/{name}/{price}/{linkImg}")
-    public String addSession(@PathVariable("name") String name,
-                             @PathVariable("price") Integer price,
-                             @PathVariable("linkImg") String linkImg,
-                             @ModelAttribute("products") ProductList products,
-                             RedirectAttributes redirectAttributes){
-        Product product = new Product();
-        product.setNameProduct(name);
-        product.setPrice(price);
-        product.setLinkImg(linkImg);
-        products.add(product);
+    @GetMapping("/detail/{id}")
+    public String showDetailProduct(@PathVariable("id") Integer id,
+                                    @SessionAttribute("cart") HashMap<Integer, Cart> cartHashMap,
+                                    Model model){
+        model.addAttribute("product",productService.findById(id));
+        model.addAttribute("cartNum",cartHashMap.size());
+        return "detail";
+    }
 
-        redirectAttributes.addFlashAttribute("products",products);
+
+    @GetMapping("/add/{id}")
+    public String addSession(@PathVariable("id") Integer id,
+                             @ModelAttribute("cart") HashMap<Integer, Cart> cartHashMap,
+                             Model model) {
+        if (cartHashMap == null){
+            cartHashMap = new HashMap<>();
+        }
+            Product product = productService.findById(id);
+        if (product!=null){
+            Cart cart;
+            if (cartHashMap.containsKey(id)){
+                cart = cartHashMap.get(id);
+                cart.setProduct(product);
+                cart.setQuantity(cart.getQuantity()+1);
+            }else {
+                cart = new Cart();
+                cart.setProduct(product);
+                cart.setQuantity(1);
+            }
+            cartHashMap.put(id, cart);
+        }
+
+        model.addAttribute("products", productService.findAll());
+        model.addAttribute("cartNum",cartHashMap.size());
+        model.addAttribute("cart", cartHashMap);
         return "index";
+    }
+
+    @GetMapping(value = "/cart")
+    public String showCart(@SessionAttribute("cart") HashMap<Integer, Cart> cartHashMap,
+                           Model model){
+        model.addAttribute("carts",cartHashMap);
+        model.addAttribute("total",totalPrice(cartHashMap));
+        return "cart";
+    }
+
+    @GetMapping(value = "/buy/{id}")
+    public String buy(@PathVariable("id") Integer id,
+                      @SessionAttribute("cart") HashMap<Integer, Cart> cartHashMap,
+                      Model model){
+        Cart cart = cartHashMap.get(id);
+        model.addAttribute("cart",cart);
+        return "buy";
+    }
+
+    @PostMapping(value = "/buy")
+    public String buyPost(@SessionAttribute("cart") HashMap<Integer, Cart> cartHashMap,
+                          @RequestParam("quantity") Integer quantity,
+                          @RequestParam("total") Integer total,
+                          @RequestParam("nameProduct") String nameProduct,
+                          @RequestParam("id") Integer id,
+                          Model model){
+        ProductBuy productBuy = new ProductBuy(id,nameProduct,quantity,total);
+        if (cartHashMap != null){
+            cartHashMap.remove(id);
+        }else {
+            cartHashMap = new HashMap<>();
+        }
+        productBuyService.save(productBuy);
+        model.addAttribute("cart",cartHashMap);
+        model.addAttribute("cartNum",cartHashMap.size());
+        return "index";
+    }
+
+    public Integer totalPrice(HashMap<Integer, Cart> cartHashMap){
+        int total = 0;
+        for (Map.Entry<Integer, Cart> list : cartHashMap.entrySet()){
+            total += list.getValue().getProduct().getPrice()* list.getValue().getQuantity();
+        }
+        return total;
     }
 }

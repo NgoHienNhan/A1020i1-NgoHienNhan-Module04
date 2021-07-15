@@ -8,23 +8,23 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
-    <a class="navbar-brand" href="#"><i class="far fa-plus-square"></i></a>
-    <a class="nav-link float-right" href="/cart">
+    <a class="navbar-brand" href="/cart"><i class="far fa-plus-square"></i></a>
+    <a class="nav-link float-right" href="#">
         <i class="fas fa-shopping-cart"></i>
         <span th:if="${cartNum}" th:text="${'('+cartNum+')'}"></span>
     </a>
 </nav>
 <div class="container">
     <div class="row">
-        <div class="col-lg-4" th:each="p:${products}">
-            <div class="card" style="width: 18rem;">
-                <img th:src="${p.getLinkImg()}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${p.getNameProduct()}"></h5>
-                    <p class="card-text" th:text="${p.getPrice()}"></p>
-                    <a th:href="@{/detail/__${p.getId()}__}" class="btn btn-primary">Detail</a>
-                </div>
-            </div>
+        <div class="col-lg-6">
+            <img th:src="${product.getLinkImg()}" height="300vh" width="auto" alt="">
+        </div>
+        <div class="col-lg-4">
+            <p class="font-weight-bold">Name of product</p>
+            <p th:text="${product.getNameProduct()}"></p>
+            <p class="font-weight-bold">Price</p>
+            <p th:text="${product.getPrice()}"></p>
+            <a th:href="@{/add/__${product.getId()}__}" class="btn btn-warning">Add cart</a>
         </div>
     </div>
 </div>
