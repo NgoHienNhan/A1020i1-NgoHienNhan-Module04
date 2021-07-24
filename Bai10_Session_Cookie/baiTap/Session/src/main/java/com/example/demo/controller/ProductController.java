@@ -3,7 +3,6 @@ package com.example.demo.controller;
 
 import com.example.demo.bean.Cart;
 import com.example.demo.bean.Product;
-import com.example.demo.bean.ProductBuy;
 import com.example.demo.service.ProductBuyService;
 import com.example.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,33 +81,7 @@ public class ProductController {
         return "cart";
     }
 
-    @GetMapping(value = "/buy/{id}")
-    public String buy(@PathVariable("id") Integer id,
-                      @SessionAttribute("cart") HashMap<Integer, Cart> cartHashMap,
-                      Model model){
-        Cart cart = cartHashMap.get(id);
-        model.addAttribute("cart",cart);
-        return "buy";
-    }
-
-    @PostMapping(value = "/buy")
-    public String buyPost(@SessionAttribute("cart") HashMap<Integer, Cart> cartHashMap,
-                          @RequestParam("quantity") Integer quantity,
-                          @RequestParam("total") Integer total,
-                          @RequestParam("nameProduct") String nameProduct,
-                          @RequestParam("id") Integer id,
-                          Model model){
-        ProductBuy productBuy = new ProductBuy(id,nameProduct,quantity,total);
-        if (cartHashMap != null){
-            cartHashMap.remove(id);
-        }else {
-            cartHashMap = new HashMap<>();
-        }
-        productBuyService.save(productBuy);
-        model.addAttribute("cart",cartHashMap);
-        model.addAttribute("cartNum",cartHashMap.size());
-        return "index";
-    }
+    
 
     public Integer totalPrice(HashMap<Integer, Cart> cartHashMap){
         int total = 0;
