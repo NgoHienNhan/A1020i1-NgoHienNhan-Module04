@@ -22,7 +22,7 @@ public class LoginLogoutController {
         return "login";
     }
 
-    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    @RequestMapping(value = "/loginSuccess", method = RequestMethod.GET)
     public String showHomePage(@ModelAttribute("user") UserItem user, RedirectAttributes attributes, Principal principal,
                                Model model,
                                HttpServletRequest request,

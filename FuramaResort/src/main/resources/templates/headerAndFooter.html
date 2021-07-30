@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -11,14 +11,14 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto nav-links">
                 <li class="nav-links-item"><a class="active text-dark" href="/home">HOME</a></li>
-                <li class="nav-links-item dropdown-custom">
+                <li sec:authorize="hasRole('ROLE_ADMIN") class="nav-links-item dropdown-custom">
                     <a class="dropdown-wrap text-dark" href="">EMPLOYEE</a>
                     <div class="dropdown-content">
                         <a class="dropdown-item-custom text-dark" th:href="@{/employee/create}">CREATE</a>
                         <a class="dropdown-item-custom text-dark" th:href="@{/employee/show}">SHOW LIST</a>
                     </div>
                 </li>
-                <li class="nav-links-item dropdown-custom">
+                <li class="nav-links-item dropdown-custom" >
                     <a class="dropdown-wrap text-dark" href="">CUSTOMER</a>
                     <div class="dropdown-content">
                         <a class="dropdown-item-custom text-dark" th:href="@{/customer/create}">CREATE</a>
@@ -43,7 +43,7 @@
             </ul>
             <a href="" class="user text-decoration-none  my-2 my-lg-0">
                 <i style="color: #7abaff" class="bi bi-person-circle icon-user"></i>
-                <span th:if="${employee}"  class="text-dark text-decoration-none" th:text="${employeeUsing.getName}"></span>
+                <span th:if="${cookieValue.value}" id="userName" class="text-primary text-decoration-none" th:value="${cookieValue.value}" th:text="${cookieValue.value}"></span>
             </a>
             <a style="margin-left: 2%" href="/logout">|LOGOUT</a>
         </div>

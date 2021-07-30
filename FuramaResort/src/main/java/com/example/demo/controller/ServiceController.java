@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.print.attribute.standard.Media;
+import javax.servlet.http.Cookie;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -49,9 +50,11 @@ public class ServiceController {
         return serviceTypeService.findAll();
     }
 
-    @ModelAttribute("employeeUsing")
-    public Employee getUserName(@SessionAttribute(required = false,name = "employee") EmployeeUsing employee){
-        return employee;
+    @ModelAttribute
+    public Model getUserName(@CookieValue(value = "employeeUser", defaultValue = "") String employeeUser,Model model){
+        Cookie cookie = new Cookie("setUser", employeeUser);
+        model.addAttribute("cookieValue", cookie);
+        return model;
     }
 
     @GetMapping(value = "/showAll")
@@ -66,10 +69,22 @@ public class ServiceController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/search")
-    public ModelAndView showListSearch(@PageableDefault(value = 9) Pageable pageable, @RequestParam("search") String name) {
+    @GetMapping(value = "/pageService")
+    public ModelAndView getPageService(@PageableDefault(value = 9) Pageable pageable) {
+        Page<Service> services = serviceService.findAll(pageable);
+        ModelAndView modelAndView = new ModelAndView("service/listService");
+        if (services.getContent().size() == 0) {
+            modelAndView.addObject("msg", "chua co dich vu nao.");
+            return modelAndView;
+        }
+        modelAndView.addObject("services", services);
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/search/{searchValue}")
+    public ModelAndView showListSearch(@PageableDefault(value = 9) Pageable pageable, @PathVariable("searchValue") String name) {
         Page<Service> services = serviceService.findByName(pageable, "%" + name + "%");
-        ModelAndView modelAndView = new ModelAndView("service/showAllService");
+        ModelAndView modelAndView = new ModelAndView("service/resultSearchService");
         if (services.getContent().size() == 0) {
             modelAndView.addObject("msg", "Not found.");
             return modelAndView;
@@ -124,10 +139,14 @@ public class ServiceController {
     }
 
     @PostMapping(value = "/update")
-    public String update(@ModelAttribute Service service, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("msg", "Update service : " + service.getServiceName() + " success.");
-        serviceService.save(service);
-        return "redirect:/service/showAll";
+    public String update(@Validated @ModelAttribute Service service, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasFieldErrors()){
+            return "/service/updateService";
+        }else {
+            redirectAttributes.addFlashAttribute("msg", "Update service : " + service.getServiceName() + " success.");
+            serviceService.save(service);
+            return "redirect:/service/showAll";
+        }
     }
 
     @GetMapping(value = "/delete/{id}")

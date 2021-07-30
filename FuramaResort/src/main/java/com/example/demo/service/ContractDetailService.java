@@ -7,4 +7,6 @@ public interface ContractDetailService {
     ContractDetail findByIdContract(Contract contract);
 
     void save(ContractDetail contractDetail);
+
+    void remove(Contract contract);
 }

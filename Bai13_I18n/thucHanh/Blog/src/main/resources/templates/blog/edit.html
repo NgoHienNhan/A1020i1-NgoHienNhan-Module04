@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout:: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/edit" th:object="${Blog}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+     <select th:field="*{category}" th:name="categoryId">
+    <option value="" disabled selected> Choose here</option>
+    <th:block th:each = "category : ${categoryList}">
+        <option th:value="${category.id}" th:text="${category.name}"> </option>
+    </th:block>
+</select>
+    <div>
+        <label>Title</label>
+        <input type="text" th:field="*{title}"/>
+    </div>
+    <div>
+        <label>Content</label>
+        <input type="text" th:field="*{content}"/>
+    </div>
+    <div>
+        <label>Create Date</label>
+        <input type="date" th:field="*{createDate}"/>
+    </div>
+    <div>
+        <label>Author</label>
+        <input type="text" th:field="*{author}"/>
+    </div>
+    <button type="submit" class="btn btn-success"> Update</button>
+    <a href="/" class="btn btn-danger">Back to list</a>
+</form>
+</body>
+</html>

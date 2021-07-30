@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout:: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:object="${blog}" action="/create" method="post">
+    <select th:field="*{category}" th:name="categoryId">
+        <option value="" disabled selected> Choose here</option>
+        <th:block th:each = "category : ${categoryList}">
+            <option th:value="${category.id}" th:text="${category.name}"> </option>
+        </th:block>
+    </select>
+
+    <div class="form-row">
+        <div class="form-group col-md-4" hidden="hidden">
+            <label for="inputEmail4">Id</label>
+            <input type="number" class="form-control" th:field="*{id}" id="inputEmail4" placeholder="id">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="inputEmail66">Title</label>
+            <input type="text" class="form-control" th:field="*{title}"  id="inputEmail66" placeholder="title">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputEmail6">Author</label>
+            <input  type="text" class="form-control" th:field="*{author}"  id="inputEmail6" placeholder="author">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputEmail">Create Date</label>
+            <input  type="date" class="form-control" th:field="*{createDate}"  id="inputEmail" placeholder="date">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="inputEmail7">Content</label>
+            <input style="height: 100px" type="text" class="form-control" th:field="*{content}"  id="inputEmail7" placeholder="content">
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add now</button>
+</form>
+</body>
+</html>

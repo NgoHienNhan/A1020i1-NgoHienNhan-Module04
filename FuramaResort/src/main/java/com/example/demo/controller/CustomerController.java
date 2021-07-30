@@ -10,10 +10,12 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.Cookie;
 import javax.validation.Valid;
 
 @Controller
@@ -25,9 +27,11 @@ public class CustomerController {
     @Autowired
     private TypeOfCustomerService typeOfCustomerService;
 
-    @ModelAttribute("employeeUsing")
-    public Employee getUserName(@SessionAttribute(required = false,name = "employee") EmployeeUsing employee){
-        return employee;
+    @ModelAttribute
+    public Model getUserName(@CookieValue(value = "employeeUser", defaultValue = "") String employeeUser,Model model){
+        Cookie cookie = new Cookie("setUser", employeeUser);
+        model.addAttribute("cookieValue", cookie);
+        return model;
     }
 
     @ModelAttribute("typeCus")
@@ -36,7 +40,7 @@ public class CustomerController {
     }
 
     @GetMapping(value = "/show")
-    public ModelAndView displayPageShow(@PageableDefault(value = 10) Pageable pageable) {
+    public ModelAndView displayPageShow(@PageableDefault(value = 5) Pageable pageable) {
         Page<Customer> customers = customerService.showAll(pageable);
         ModelAndView modelAndView = new ModelAndView("customer/showCustomer");
         modelAndView.addObject("customers", customers);
@@ -46,12 +50,24 @@ public class CustomerController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/search")
-    public ModelAndView showListSearch(@PageableDefault(value = 10) Pageable pageable, @RequestParam("search") String name) {
-        Page<Customer> customers = customerService.findByName(pageable, "%" + name + "%");
-        ModelAndView modelAndView = new ModelAndView("customer/showCustomer");
+    @GetMapping(value = "/tableCustomer")
+    public ModelAndView getTableCustomer(@PageableDefault(value = 5) Pageable pageable) {
+        Page<Customer> customers = customerService.showAll(pageable);
+        ModelAndView modelAndView = new ModelAndView("customer/tableCustomer");
         modelAndView.addObject("customers", customers);
         if (customers == null) {
+            modelAndView.addObject("msg", "Chưa có khách hàng.");
+        }
+        return modelAndView;
+    }
+
+
+    @GetMapping(value = "/search/{searchValue}")
+    public ModelAndView showListSearch(@PageableDefault(value = 5) Pageable pageable, @PathVariable("searchValue") String name) {
+        Page<Customer> customers = customerService.findByName(pageable, "%" + name + "%");
+        ModelAndView modelAndView = new ModelAndView("customer/resultSearchCustomer");
+        modelAndView.addObject("customers", customers);
+        if (customers.getContent().size() == 0) {
             modelAndView.addObject("msg", "Not found.");
         }
         return modelAndView;
@@ -83,10 +99,14 @@ public class CustomerController {
     }
 
     @PostMapping(value = "/edit")
-    public String updateCustomer(@ModelAttribute Customer customer, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("msg", "Update customer: " + customer.getCustomerName() + " success.");
-        customerService.save(customer);
-        return "redirect:/customer/show";
+    public String updateCustomer(@Validated @ModelAttribute Customer customer, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+       if (bindingResult.hasFieldErrors()){
+           return "/customer/updateCustomer";
+       }else {
+           redirectAttributes.addFlashAttribute("msg", "Update customer: " + customer.getCustomerName() + " success.");
+           customerService.save(customer);
+           return "redirect:/customer/show";
+       }
     }
 
     @GetMapping(value = "/delete/{id}")

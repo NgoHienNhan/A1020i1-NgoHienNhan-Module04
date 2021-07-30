@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.Cookie;
+
 @Controller
 @RequestMapping(value = "/contract")
 public class ContractController{
@@ -54,9 +56,11 @@ public class ContractController{
         return attachServiceService.findAll();
     }
 
-    @ModelAttribute("employeeUsing")
-    public Employee getUserName(@SessionAttribute(required = false,name = "employee") EmployeeUsing employee){
-        return employee;
+    @ModelAttribute
+    public Model getUserName(@CookieValue(value = "employeeUser", defaultValue = "") String employeeUser,Model model){
+        Cookie cookie = new Cookie("setUser", employeeUser);
+        model.addAttribute("cookieValue", cookie);
+        return model;
     }
 
     @GetMapping(value = "/show")
@@ -65,9 +69,19 @@ public class ContractController{
         ModelAndView modelAndView = new ModelAndView("contract/listUseService");
         if (contracts.getContent().size() == 0){
             modelAndView.addObject("msg","Chưa có khách hàng nào sử dụng dịch vụ.");
-        }else {
-            modelAndView.addObject("contracts",contracts);
         }
+        modelAndView.addObject("contracts",contracts);
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/tableContract")
+    public ModelAndView getPageContract(@PageableDefault(value = 5) Pageable pageable){
+        Page<Contract> contracts = contractService.findAll(pageable);
+        ModelAndView modelAndView = new ModelAndView("contract/tableContract");
+        if (contracts.getContent().size() == 0){
+            modelAndView.addObject("msg","Chưa có khách hàng nào sử dụng dịch vụ.");
+        }
+        modelAndView.addObject("contracts",contracts);
         return modelAndView;
     }
 
@@ -98,6 +112,34 @@ public class ContractController{
     public String saveContractDetail(@ModelAttribute ContractDetail contractDetail, RedirectAttributes redirectAttributes){
         redirectAttributes.addFlashAttribute("msg","Create contract detail of customer: "+contractDetail.getContract().getCustomer().getCustomerName()+" success.");
         contractDetailService.save(contractDetail);
+        return "redirect:/contract/show";
+    }
+
+    @GetMapping(value = "/edit/{id}")
+    public ModelAndView showPageEdit(@PathVariable("id") Integer id){
+        Contract contract = contractService.findById(id);
+        return new ModelAndView("contract/editContract","contract",contract);
+    }
+
+    @PostMapping(value = "/editContract")
+    public String editContract(@Validated @ModelAttribute Contract contract, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+        if (bindingResult.hasFieldErrors()){
+            return "/contract/editContract";
+        }else {
+            redirectAttributes.addFlashAttribute("msg", "Update contract of customer: " + contract.getCustomer().getCustomerName() + " success.");
+            contractService.save(contract);
+            return "redirect:/contract/show";
+        }
+    }
+
+    @GetMapping(value = "delete/{id}")
+    public String removeContract(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes){
+        Contract contract = contractService.findById(id);
+        if (contract.getContractDetails().size() > 0){
+            contractDetailService.remove(contract);
+        }
+        contractService.delete(contract);
+        redirectAttributes.addFlashAttribute("msg", "Deleted contract of customer: " + contract.getCustomer().getCustomerName() + " success.");
         return "redirect:/contract/show";
     }
 }

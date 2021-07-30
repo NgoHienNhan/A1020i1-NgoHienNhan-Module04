@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout:: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<h3 th:text="${msg}"></h3>
+<a href="?la=eng" class="btn btn-primary">Eng</a>
+<a href="?la=vi" class="btn btn-primary">Vie</a><br>
+<h1 th:text="#{message.title}"></h1>
+<a href="/showCreate" class="btn btn-info" th:text="#{message.create}"></a>
+<form action="/search" method="get">
+    <input type="text" name="name" placeholder="Nhập tiêu đề vào đây">
+    <input type="submit" th:text="#{message.search}">
+</form>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Title</th>
+        <th scope="col">Author</th>
+        <th scope="col" colspan="3">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="blog:${listBlog}">
+        <td th:text="${blog.id}"></td>
+        <td><a th:href="@{/detail/{id}(id=${blog.id})}" th:text="${blog.title}"></a></td>
+        <td th:text="${blog.author}"></td>
+        <td><a th:href="@{/detail/{id}(id=${blog.id})}" class="btn btn-primary"  th:text="#{message.detail}"></a></td>
+        <td><a th:href="@{/edit/__${blog.id}__}" class="btn btn-primary"  th:text="#{message.update}"></a></td>
+        <td><a th:href="@{/delete/{id}(id=${blog.id})}" onclick="return confirm('Are you sure to delete?')"
+               class="btn btn-danger"  th:text="#{message.delete}"></a></td>
+    </tr>
+    </tbody>
+</table>
+<a class="btn btn-primary" th:href="@{'/'(page=${listBlog.number - 1})}" th:if="${listBlog.hasPrevious()}">Previous</a>
+<a class="btn btn-success" th:text="${listBlog.number+1 }" th:href="@{'/'(page=${listBlog.number+1})}">/</a>
+<a class="btn btn-success" th:text="${listBlog.totalPages}"
+   th:href="@{'/'(page=${listBlog.totalPages - 1})}"></a>
+<a class="btn btn-danger" th:href="@{'/'(page=${listBlog.number + 1})}" th:if="${listBlog.hasNext()}">Next</a>
+
+</body>
+</html>

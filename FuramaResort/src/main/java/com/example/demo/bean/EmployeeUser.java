@@ -5,7 +5,7 @@ import javax.validation.constraints.*;
 public class EmployeeUser {
     private String employeeId;
 
-    @NotBlank
+    @NotBlank()
     private String name;
 
     @NotBlank
@@ -16,7 +16,7 @@ public class EmployeeUser {
     private String idCard;
 
     @NotNull
-    @Positive
+    @Positive(message = "You can only enter numbers greater than 0")
     private Double salary;
 
     @NotBlank
@@ -29,6 +29,7 @@ public class EmployeeUser {
 
     @NotBlank
     private String address;
+
     private Position position;
     private EducationDegree educationDegree;
     private Division division;

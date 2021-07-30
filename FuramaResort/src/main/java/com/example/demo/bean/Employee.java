@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.Set;
 
 @Entity
@@ -11,12 +12,29 @@ public class Employee {
     @Id
     private String employeeId;
 
+    @NotBlank
     private String name;
+
+    @NotBlank
     private String birthday;
+
+    @NotBlank
+    @Pattern(regexp = "^[0-9]{9}$",message = "The Id Card must have 9 digits and be in the format XXX XXX XXX.")
     private String idCard;
+
+    @NotNull
+    @Positive(message = "You can only enter numbers greater than 0")
     private Double salary;
+
+    @NotBlank
+    @Pattern(regexp = "^((091)|(090))[0-9]{7}$",message = "Phone number must be in the correct format 090xxxxxxx or 091xxxxxxx.")
     private String phone;
+
+    @NotBlank
+    @Email
     private String email;
+
+    @NotBlank
     private String address;
 
     @ManyToOne

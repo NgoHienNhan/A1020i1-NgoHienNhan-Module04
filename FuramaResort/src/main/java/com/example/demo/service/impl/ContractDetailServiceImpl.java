@@ -21,4 +21,9 @@ public class ContractDetailServiceImpl implements ContractDetailService {
     public void save(ContractDetail contractDetail) {
         contractDetailRepository.save(contractDetail);
     }
+
+    @Override
+    public void remove(Contract contract) {
+        contractDetailRepository.delete(contractDetailRepository.findByContract(contract));
+    }
 }

@@ -12,7 +12,7 @@ public class User {
 
     private String passWord;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany()
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "userName"),
             inverseJoinColumns = @JoinColumn(name = "roleId"))

@@ -15,14 +15,14 @@ public class Contract {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer contractId;
 
-    @NotBlank
+    @NotBlank()
     private String contractStartDate;
 
     @NotBlank
     private String contractEndDate;
 
     @NotNull
-    @Positive
+    @Positive(message = "You can only enter numbers greater than 0")
     private Double contractDeposit;
 
     private Double contractTotalMoney;

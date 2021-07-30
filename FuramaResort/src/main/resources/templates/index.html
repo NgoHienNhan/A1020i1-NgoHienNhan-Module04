@@ -60,7 +60,7 @@
                         <div class="col-lg-10">
                             <a href="" class="user text-decoration-none">
                                 <i class="bi bi-person-circle icon-user"></i>
-                                <span th:if="${employee}" id="userName" class="text-white text-decoration-none" th:value="${employee.getName()}" th:text="${session.employee.getName()}"></span>
+                                <span th:if="${cookieValue.value}" id="userName" class="text-white text-decoration-none" th:value="${cookieValue.value}" th:text="${cookieValue.value}"></span>
                             </a>
                         </div>
                         <div class="col-lg-2">

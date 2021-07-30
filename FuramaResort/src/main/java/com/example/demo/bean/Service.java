@@ -18,15 +18,15 @@ public class Service {
     private String serviceName;
 
     @NotNull
-    @Positive
+    @Positive(message = "You can only enter numbers greater than 0")
     private Integer serviceArea;
 
     @NotNull
-    @Positive
+    @Positive(message = "You can only enter numbers greater than 0")
     private Double serviceCost;
 
     @NotNull
-    @Positive
+    @Positive(message = "You can only enter numbers greater than 0")
     private Integer serviceMaxPeople;
 
     private String standardRoom;

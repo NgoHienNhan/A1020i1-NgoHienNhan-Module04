@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.Cookie;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,9 +40,11 @@ public class EmployeeController {
     @Autowired
     private UserService userService;
 
-    @ModelAttribute("employeeUsing")
-    public Employee getUserName(@SessionAttribute(required = false,name = "employee") EmployeeUsing employee){
-        return employee;
+    @ModelAttribute
+    public Model getUserName(@CookieValue(value = "employeeUser", defaultValue = "") String employeeUser,Model model){
+        Cookie cookie = new Cookie("setUser", employeeUser);
+        model.addAttribute("cookieValue", cookie);
+        return model;
     }
 
     @ModelAttribute("education")
@@ -60,7 +63,7 @@ public class EmployeeController {
     }
 
     @GetMapping(value = "/show")
-    public ModelAndView showPageListEmployee(@PageableDefault(value = 10) Pageable pageable) {
+    public ModelAndView showPageEmployee(@PageableDefault(value = 5) Pageable pageable) {
         Page<Employee> employees = employeeService.findAll(pageable);
         ModelAndView modelAndView = new ModelAndView("employee/showEmployee");
         if (employees.getContent().size() == 0) {
@@ -70,10 +73,21 @@ public class EmployeeController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/search")
-    public ModelAndView showSearch(@PageableDefault(value = 10) Pageable pageable, @RequestParam("search") String name) {
+    @GetMapping(value = "/tableEmployee")
+    public ModelAndView getTableEmployee(@PageableDefault(value = 5) Pageable pageable) {
+        Page<Employee> employees = employeeService.findAll(pageable);
+        ModelAndView modelAndView = new ModelAndView("employee/tableEmployee");
+        if (employees.getContent().size() == 0) {
+            modelAndView.addObject("msg", "Chưa có nhân viên nào.");
+        }
+        modelAndView.addObject("employees", employees);
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/search/{searchValue}")
+    public ModelAndView showSearch(@PageableDefault(value = 5) Pageable pageable, @PathVariable("searchValue") String name) {
         Page<Employee> employees = employeeService.findByName(pageable, "%" + name + "%");
-        ModelAndView modelAndView = new ModelAndView("employee/showEmployee");
+        ModelAndView modelAndView = new ModelAndView("employee/resultSearch");
         if (employees.getContent().size() == 0) {
             modelAndView.addObject("msg", "Not found.");
         }
@@ -133,16 +147,19 @@ public class EmployeeController {
     }
 
     @PostMapping(value = "/update")
-    public String updateEmployee(@ModelAttribute Employee employee, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("msg", "Update employee: " + employee.getName() + " success.");
-        employeeService.save(employee);
-        return "redirect:/employee/show";
+    public String updateEmployee(@Validated @ModelAttribute Employee employee, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasFieldErrors()) {
+            return "/employee/updateEmployee";
+        }else {
+            redirectAttributes.addFlashAttribute("msg", "Update employee: " + employee.getName() + " success.");
+            employeeService.save(employee);
+            return "redirect:/employee/show";
+        }
     }
 
     @GetMapping(value = "/delete/{id}")
-    public String deleteEmployee(@PathVariable String id, RedirectAttributes redirectAttributes) {
+    public String deleteEmployee(@PathVariable String id) {
         Employee employee = employeeService.findById(id);
-        redirectAttributes.addFlashAttribute("msg", "Delete employee: " + employee.getName() + " success.");
         employeeService.delete(employee);
         return "redirect:/employee/show";
     }
