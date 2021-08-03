@@ -5,7 +5,6 @@ import com.example.demo.bean.User;
 import com.example.demo.service.EmployeeService;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +12,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 
@@ -43,7 +41,6 @@ public class LoginLogoutController {
                                Model model,
                                @CookieValue(value = "employeeUser", defaultValue = "") String employeeUser,
                                HttpServletResponse response) {
-
         String userName = principal.getName();
         User user = userService.findById(userName);
         Employee employee = employeeService.findByUser(user);

@@ -17,7 +17,7 @@
 </head>
 <body>
 <div th:insert="~{/headerAndFooter::header}"></div>
-<div class="container-fluid" style="margin-top: 10%">
+<div class="container-fluid">
     <div class="row">
         <div class="col-lg-4">
             <form class="form-inline my-2 my-lg-0">
@@ -31,7 +31,7 @@
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="text-warning text-center">LIST SERVICE</h1>
+            <h1 class="text-warning text-center" th:text="#{list.service}">LIST SERVICE</h1>
         </div>
     </div>
     <div id="contentTable">
@@ -50,7 +50,7 @@
                     <div class="card-body">
                         <h5 class="card-title" th:text="${service.serviceName}"></h5>
                         <p class="card-text" th:text="${service.descriptionOtherConvenience}"></p>
-                        <a class="btn btn-primary" style="position: absolute; bottom: 4%" th:href="@{/service/showDetail/__${service.serviceId}__}">Detail</a>
+                        <a class="btn btn-primary" style="position: absolute; bottom: 4%" th:href="@{/service/showDetail/__${service.serviceId}__}" th:text="#{detail}">Detail</a>
                     </div>
                 </div>
             </div>
@@ -62,7 +62,7 @@
                     <div class="card-body">
                         <h5 class="card-title" th:text="${service.serviceName}"></h5>
                         <p class="card-text" th:text="${service.descriptionOtherConvenience}"></p>
-                        <a class="btn btn-primary" style="position: absolute; bottom: 4%" th:href="@{/service/showDetail/__${service.serviceId}__}">Detail</a>
+                        <a class="btn btn-primary" style="position: absolute; bottom: 4%" th:href="@{/service/showDetail/__${service.serviceId}__}" th:text="#{detail}">Detail</a>
                     </div>
                 </div>
             </div>
@@ -74,7 +74,7 @@
                     <div class="card-body">
                         <h5 class="card-title" th:text="${service.serviceName}"></h5>
                         <p class="card-text" th:text="${service.descriptionOtherConvenience}"></p>
-                        <a class="btn btn-primary" style="position: absolute; bottom: 4%" th:href="@{/service/showDetail/__${service.serviceId}__}">Detail</a>
+                        <a class="btn btn-primary" style="position: absolute; bottom: 4%" th:href="@{/service/showDetail/__${service.serviceId}__}" th:text="#{detail}">Detail</a>
                     </div>
                 </div>
             </div>
@@ -93,7 +93,7 @@
                                 <span aria-hidden="true">&laquo;</span>
                             </button>
                         </li>
-                        <li class="page-item active"><button class="page-link" th:text="${services.number}"></button></li>
+                        <li class="page-item active"><button class="page-link" th:text="${services.number + 1}"></button></li>
                         <li class="page-item">
                             <button class="page-link btnNext"
                                th:if="${services.hasNext()}" aria-label="Next">

@@ -28,7 +28,7 @@ public class CustomerController {
 
     @PostMapping(value = "/create")
     public String createCustomer(@ModelAttribute Customer customer) {
-        long id = (long) Math.random()*10;
+        long id = (long) (Math.random() * 10);
         customer.setId(id);
         customerService.save(customer);
         return "redirect:/";

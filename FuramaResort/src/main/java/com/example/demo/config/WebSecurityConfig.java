@@ -15,6 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
+
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -24,6 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private DataSource dataSource;
+
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -49,9 +52,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests().and().formLogin()
                 .loginProcessingUrl("/login")
-                .loginPage("/")//
+                .loginPage("/")
                 .defaultSuccessUrl("/loginSuccess")
-                .failureUrl("/")//
+                .failureUrl("/")
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccess")

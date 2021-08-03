@@ -17,7 +17,7 @@
 </head>
 <body>
 <div th:insert="~{/headerAndFooter::header}"></div>
-<div class="container-fluid" style="margin-top: 10%">
+<div class="container-fluid">
     <div class="row">
         <div class="col-lg-4">
             <form class="form-inline my-2 my-lg-0">
@@ -31,7 +31,7 @@
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="text-warning text-center">LIST EMPLOYEE</h1>
+            <h1 class="text-warning text-center" th:text="#{list.employee}">LIST EMPLOYEE</h1>
         </div>
     </div>
     <div class="row">
@@ -49,17 +49,17 @@
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Full name</th>
-                        <th scope="col">Birth day</th>
-                        <th scope="col">Id card</th>
-                        <th scope="col">Phone</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Salary</th>
-                        <th scope="col">Position</th>
-                        <th scope="col">Education degree</th>
-                        <th scope="col">Division</th>
-                        <th scope="col">Action</th>
+                        <th scope="col" th:text="#{fullName}">Full name</th>
+                        <th scope="col" th:text="#{dateOfBirth}">Birth day</th>
+                        <th scope="col" th:text="#{idCard}">Id card</th>
+                        <th scope="col" th:text="#{phone}">Phone</th>
+                        <th scope="col" th:text="#{email}">Email</th>
+                        <th scope="col" th:text="#{address}">Address</th>
+                        <th scope="col" th:text="#{salary}">Salary</th>
+                        <th scope="col" th:text="#{position}">Position</th>
+                        <th scope="col" th:text="#{educationDegree}">Education degree</th>
+                        <th scope="col" th:text="#{division}">Division</th>
+                        <th scope="col" th:text="#{action}">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -76,9 +76,9 @@
                         <td th:text="${e.educationDegree.educationDegreeName}"></td>
                         <td th:text="${e.division.divisionName}"></td>
                         <td>
-                            <a th:href="@{/employee/update/__${e.employeeId}__ }" class="btn btn-primary float-left">Edit</a>
+                            <a th:href="@{/employee/update/__${e.employeeId}__ }" class="btn btn-primary float-left" th:text="#{update}"></a>
                             <button type="button" class="btn btn-warning float-right" data-toggle="modal"
-                                    th:data-target="'#exampleModal'+${e.employeeId}">
+                                    th:data-target="'#exampleModal'+${e.employeeId}" th:text="#{deleted}">
                                 Delete
                             </button>
 
@@ -99,7 +99,7 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
                                             </button>
-                                            <button class="btn btn-warning btnDelete" type="button" >Xóa</button>
+                                            <button class="btn btn-warning btnDelete" type="button" th:text="#{deleted}" >Xóa</button>
                                             <input type="text" hidden="hidden" th:value="${e.employeeId}">
                                         </div>
                                     </div>
@@ -124,7 +124,7 @@
                                 <span aria-hidden="true">&laquo;</span>
                             </button>
                         </li>
-                        <li class="page-item active"><button class="page-link btnPageNow" th:text="${employees.number}"></button></li>
+                        <li class="page-item active"><button class="page-link btnPageNow" th:text="${employees.number + 1}"></button></li>
                         <li class="page-item">
                             <button class="page-link btnNext" th:if="${employees.hasNext()}" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>

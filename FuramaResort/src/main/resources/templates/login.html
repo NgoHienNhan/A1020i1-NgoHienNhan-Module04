@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
 <div class="header">
@@ -18,11 +19,11 @@
         <img src="img/logo.png" alt="..." class="logo">
     </nav>
 
-    <div class="content">
+    <div class="content" data-aos="fade-right" data-aos-duration="2000">
         <h1>Welcome to <br> Furama Resort</h1>
     </div>
 
-    <div class="wrap-login">
+    <div class="wrap-login" data-aos="zoom-in-left" data-aos-duration="2000">
         <h2 class="text-center text-white">LOGIN</h2>
         <div class="form-login">
             <form name='f' class="mb-3" th:action="@{/login}" method="post">
@@ -44,5 +45,9 @@
         crossorigin="anonymous"></script>
 <script src="/js/jquery-3.6.0.min.js "></script>
 <script src="/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
 </body>
 </html>
