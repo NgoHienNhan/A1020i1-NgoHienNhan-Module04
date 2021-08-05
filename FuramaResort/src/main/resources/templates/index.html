@@ -19,16 +19,16 @@
     <div class="nav-wrap start-header">
         <div class="container">
             <div class="row">
-                <div class="col-lg-9">
+                <div class="col-lg-12">
                     <nav>
                         <img src="/img/logo.png" alt="..." class="logo">
-                        <ul class="nav-links float-right">
+                        <ul style="margin: 0" class="nav-links float-right">
                             <li class="nav-links-item"><a href="/home" th:text="#{home.header}"></a></li>
                             <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-links-item dropdown-custom">
                                 <a class="dropdown-wrap" th:text="#{employee.header}" href=""></a>
                                 <div class="dropdown-content">
                                     <a class="dropdown-item-custom" th:href="@{/employee/create}" th:text="#{create}"></a>
-                                    <a class="dropdown-item-custom" th:href="@{/employee/show}" th:text="#{create}"></a>
+                                    <a class="dropdown-item-custom" th:href="@{/employee/show}" th:text="#{show}"></a>
                                 </div>
                             </li>
                             <li class="nav-links-item dropdown-custom">
@@ -64,23 +64,18 @@
                             <li class="nav-links-item" style="margin-left: 0">
                                 <a class="dropdown-wrap" href="/home?lang=en">EN</a>
                             </li>
+                            <li>
+                                <a href="" class="text-decoration-none">
+                                    <i class="bi bi-person-circle icon-user"></i>
+                                    <span th:if="${cookieValue.value}" id="userName" class="text-white text-decoration-none"
+                                          th:value="${cookieValue.value}" th:text="${cookieValue.value}"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a style="margin-bottom: 10%" class="btn btn-primary" href="/logout" th:text="#{logout.header}"></a>
+                            </li>
                         </ul>
                     </nav>
-                </div>
-                <div class="col-lg-3">
-                    <div class="row">
-                        <div class="col-lg-10">
-                            <a href="" class="user text-decoration-none">
-                                <i class="bi bi-person-circle icon-user"></i>
-                                <span th:if="${cookieValue.value}" id="userName" class="text-white text-decoration-none"
-                                      th:value="${cookieValue.value}" th:text="${cookieValue.value}"></span>
-                            </a>
-                        </div>
-                        <div class="col-lg-2">
-                            <a class="btn btn-primary" style="position: relative ;top: 20%;text-decoration: none"
-                               href="/logout" th:text="#{logout.header}"></a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -90,10 +85,10 @@
     <div class="nav-wrap start-header">
         <div class="container">
             <div class="row">
-                <div class="col-lg-9">
+                <div class="col-lg-12">
                     <nav>
                         <img src="/img/logo.png" alt="..." class="logo">
-                        <ul class="nav-links float-right">
+                        <ul style="margin: 0" class="nav-links float-right">
                             <li class="nav-links-item"><a class="active text-dark" href="/home" th:text="#{home.header}"></a></li>
                             <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-links-item dropdown-custom">
                                 <a class="dropdown-wrap text-dark" href="" th:text="#{employee.header}"></a>
@@ -134,23 +129,18 @@
                             <li class="nav-links-item" style="margin-left: 0">
                                 <a class="dropdown-wrap text-dark" href="/home?lang=en">EN</a>
                             </li>
+                            <li>
+                                <a href="" class="text-decoration-none">
+                                    <i class="bi bi-person-circle icon-user"></i>
+                                    <span th:if="${cookieValue.value}" id="userName" class="text-dark text-decoration-none"
+                                          th:value="${cookieValue.value}" th:text="${cookieValue.value}"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a style="margin-bottom: 10%" class="btn btn-primary" href="/logout" th:text="#{logout.header}"></a>
+                            </li>
                         </ul>
                     </nav>
-                </div>
-                <div class="col-lg-3">
-                    <div class="row">
-                        <div class="col-lg-10">
-                            <a href="" class="user text-decoration-none">
-                                <i class="bi bi-person-circle icon-user"></i>
-                                <span th:if="${cookieValue.value}" id="userName" class="text-dark text-decoration-none"
-                                      th:value="${cookieValue.value}" th:text="${cookieValue.value}"></span>
-                            </a>
-                        </div>
-                        <div class="col-lg-2">
-                            <a class="btn btn-primary" style="position: relative ;top: 20%;text-decoration: none"
-                               href="/logout" th:text="#{logout.header}">Logout</a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

@@ -87,7 +87,9 @@ public class ContractController{
 
     @GetMapping(value = "/createContract")
     public ModelAndView showPageCreateContract(){
-        return new ModelAndView("contract/createContract","contract",new Contract());
+        ModelAndView modelAndView = new ModelAndView("contract/createContract");
+        modelAndView.addObject("contract",new Contract());
+        return modelAndView;
     }
 
     @PostMapping(value = "/createContract")
