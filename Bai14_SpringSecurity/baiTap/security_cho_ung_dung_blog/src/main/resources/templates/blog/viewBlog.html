@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${blog.title} + ' - EasyCode'">EasyCode</title>
+    <link rel="icon" th:href="@{../../image/code-solid.svg}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{../../css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{../../css/css.css}">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <style>
+        .date-time-span{
+            margin-right: 8px;
+            color: #aaa;
+            font-size: 10px;
+            line-height: 18px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .title{
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 35px;
+            line-height: 40px;
+            font-weight: 400;
+        }
+        .category-a{
+            color: #aaa;
+        }
+        .category-a:hover{
+            color: #cdcdcd;
+            text-decoration: none;
+        }
+        .content{
+            color: #333;
+            font-size: medium;
+            line-height: 135%;
+            font-family: Arial,sans-serif;
+            white-space: pre-wrap;       /* css-3 */
+            white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+            /*white-space: -pre-wrap;      !* Opera 4-6 *!*/
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            word-wrap: break-word;       /* Internet Explorer 5.5+ */
+        }
+    </style>
+</head>
+<body>
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">Xác nhận</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <span>Bạn có muốn xoá bài viết?</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <form action="/delete-blog">
+                    <input type="hidden" name="id" id="id">
+                    <input type="hidden" name="location" value="tips">
+                    <input type="submit" class="btn btn-danger" value="Xoá">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{/fragments/layout :: header}"></div>
+<div th:replace="~{/fragments/layout :: navbar}"></div>
+<div class="container pb-3 mt-5">
+    <div class="row">
+        <div class="col-9 pr-xl-5 pl-0">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="title" th:text="${blog.title}"></h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 d-flex pl-4">
+                    <span class="date-time-span" th:text="${date}"></span>
+                    <span class="date-time-span">|</span>
+                    <a class="date-time-span category-a" th:href="@{/__${blog.category.URLName}__}" th:text="${blog.category.name}"></a>
+                    <span class="date-time-span">|</span>
+                    <span class="date-time-span" style="margin-right: 0.2rem">views: </span>
+                    <span class="date-time-span" th:text="${blog.views}"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 pl-4 pt-3 content" th:utext="${blog.content}">
+                </div>
+            </div>
+            <div class="row" sec:authorize="!isAnonymous()">
+                <div class="col-12 d-flex">
+                    <a class="btn btn-warning ml-auto mr-1" th:href="@{/edit-blog/__${blog.id}__}">Chỉnh sửa</a>
+                    <button class="btn btn-danger mr-auto ml-1" th:onclick="'javascript:deleteBlog(' + ${blog.id} + ');'">Xoá</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-3" style="">
+            <div class="row position-sticky" style="top: 56px">
+                <div class="col-12 position-relative" style="height: 500px; background-color: #d9d6d6">
+                    <p class="position-relative text-center w-100" style="top: 50%">285x500</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="/fragments/layout :: footer"></div>
+<a href="" th:replace="/fragments/layout :: scrollToTop"></a>
+
+<script th:src="@{../../js/jquery.min.js}"></script>
+<script th:src="@{../../js/popper.min.js}"></script>
+<script th:src="@{../../js/bootstrap.min.js}"></script>
+<script th:src="@{../../js/scroll-to-top.js}"></script>
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="popover"]').popover({
+            placement : 'bottom',
+            trigger : 'hover'
+        });
+    });
+
+    function deleteBlog(id){
+        document.getElementById("id").value = id;
+        $("#deleteModal").modal('show');
+    }
+
+</script>
+</body>
+</html>

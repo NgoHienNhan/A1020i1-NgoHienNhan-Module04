@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>EasyCode</title>
+    <link rel="icon" th:href="@{./image/code-solid.svg}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{./css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{./css/css.css}">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <style>
+        .display-5{
+            font-size: 1.5rem;
+            font-weight: 300;
+            line-height: 1.2;
+        }
+        .category-a{
+            /*font-family: Roboto,serif;*/
+            font-weight: normal;
+            font-style: normal;
+            font-size: 11px;
+            color: #a67c52;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+        .category-a:hover{
+            text-decoration: none;
+            color: #a67c52;
+        }
+
+        .title-a{
+            font-weight: normal;
+            font-style: normal;
+            font-size: 22px;
+            color: #121416;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+        .title-a:hover{
+            text-decoration: none;
+            color: #787878;
+        }
+        .datetime-p{
+            display: inline-block;
+            margin-right: 8px;
+            color: #797979;
+            font-size: 10px;
+            line-height: 18px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .content-span{
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 15px;
+        }
+        ul{
+            list-style-type: none;
+        }
+    </style>
+</head>
+<body>
+<!--Modal-->
+<div th:if="${status != null}" class="modal fade" id="statusSave" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Lưu thành công</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               <span style="color: green" th:text="${status}"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">Xác nhận</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <span>Bạn có muốn xoá bài viết?</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <form action="/delete-blog">
+                    <input type="hidden" name="id" id="id">
+                    <input type="submit" class="btn btn-danger" value="Xoá">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="~{/fragments/layout :: header}"></div>
+<div th:replace="~{/fragments/layout :: navbar}"></div>
+<div class="container-fluid pb-3" sec:authorize="!isAnonymous()">
+    <div class="row d-flex">
+        <a th:href="@{/create-blog}" class="mr-3 ml-auto mt-3 mb-3">
+            <button type="button" class="btn btn-primary">Bài viết mới</button>
+        </a>
+    </div>
+</div>
+<div class="container pb-3">
+    <div class="row">
+        <div class="col-9 pr-xl-5 pl-0">
+            <div class="showBlog">
+                <div th:each="blog, i : ${listPost}">
+                    <div class="row shadow rounded-lg p-3 card mb-4" th:classappend="${i.index} ? mt-4">
+                        <div class="col-12 d-flex p-0">
+                            <img th:src="@{${blog.category.img}}" alt="image" class="mr-3" style="height: 180px; width: 180px;">
+                            <div class="w-100">
+                                <ul class="list-group h-100">
+                                    <li class="d-flex">
+                                        <a th:href="@{/__${blog.category.URLName}__}" class="category-a d-block" th:text="${blog.category.name}"></a>
+                                    </li>
+                                    <li class="d-flex">
+                                        <a th:href="@{/view/__${blog.category.URLName}__/__${blog.URLTitle}__}" class="title-a d-block" th:text="${blog.title}"></a>
+                                    </li>
+                                    <li class="d-flex">
+                                        <div class="datetime-p" th:text="${listDate.get(i.index)}"></div>
+                                    </li>
+                                    <li class="">
+                                        <span class="m-0 p-0 text-break text-secondary content-span" th:text="${blog.headContent}"></span>
+                                    </li>
+                                    <li class="mb-0 mt-auto d-flex">
+                                        <a th:href="@{/view/__${blog.category.URLName}__/__${blog.URLTitle}__}" class="text-decoration-none btn btn-primary pt-1 pb-1 ml-0">Chi tiết....</a>
+                                        <a th:href="@{/edit-blog/__${blog.id}__}" class="btn btn-warning pt-1 pb-1 ml-auto mr-1" sec:authorize="!isAnonymous()">Chỉnh sửa</a>
+                                        <button class="btn btn-danger pt-1 pb-1 ml-1 mr-0" sec:authorize="!isAnonymous()" th:onclick="'javascript:deleteBlog(' + ${blog.id} + ');'">Xoá</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress" style="height: 1px;" th:if="${i.count != listPost.numberOfElements}">
+                        <div class="progress-bar" role="progressbar" style="width: 100%; background-color: #eee" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col d-flex">
+                    <button id="nextPage" class="btn btn-secondary ml-auto mr-auto">More...</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-3" style="">
+            <div class="row position-sticky" style="top: 56px">
+                <div class="col-12 position-relative " style="height: 500px; background-color: #d9d6d6">
+                    <p class="position-relative text-center w-100" style="top: 50%">285x500</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{/fragments/layout :: footer}"></div>
+<a href="" th:replace="~{/fragments/layout :: scrollToTop}"></a>
+
+<script th:src="@{./js/jquery.min.js}"></script>
+<script th:src="@{./js/popper.min.js}"></script>
+<script th:src="@{./js/bootstrap.min.js}"></script>
+<script th:src="@{./js/scroll-to-top.js}"></script>
+<script th:src="@{./js/pagination.js}"></script>
+<script>
+    function deleteBlog(id){
+        document.getElementById("id").value = id;
+        $("#deleteModal").modal('show');
+    }
+</script>
+</body>
+</html>

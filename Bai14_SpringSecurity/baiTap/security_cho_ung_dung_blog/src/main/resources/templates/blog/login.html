@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - EasyCode</title>
+    <link rel="icon" th:href="@{./image/code-solid.svg}" type="image/x-icon">
+    <link href="css/login.css" rel="stylesheet" id="style">
+    <!-- Bootstrap core Library -->
+    <link rel="stylesheet" th:href="@{./css/bootstrap.min.css}">
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+    <!-- Font Awesome-->
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+<body>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-5 col-md-4 text-center mr-auto ml-auto">
+            <h1 class='text-white'>EasyCode Login</h1>
+            <div class="form-login"></br>
+                <h4>Secure Login</h4>
+                </br>
+                <form th:action="@{/login}" th:method="post" >
+                    <input type="text" name="username" class="form-control input-sm chat-input" placeholder=" username"/>
+                    </br></br>
+                    <input type="password" name="password" class="form-control input-sm chat-input" placeholder=" password"/>
+                    <br>
+                    <input type="checkbox" name="remember-me" id="rememberMe">
+                    <label for="rememberMe">Remember me</label>
+                    <p th:text="${message}" class="text-white" style="font-size: 20px"></p>
+                    <div class="wrapper">
+                        <span class="group-btn">
+                            <button type="submit" class="btn btn-danger btn-md">login <i class="fas fa-sign-in-alt"></i></button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </br></br></br>
+</div>
+<script th:src="@{./js/jquery.min.js}"></script>
+<script th:src="@{./js/bootstrap.min.js}"></script>
+</body>
+</html>

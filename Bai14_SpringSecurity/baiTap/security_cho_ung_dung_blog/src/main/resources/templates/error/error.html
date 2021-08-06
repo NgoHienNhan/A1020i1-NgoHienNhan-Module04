@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error - EasyCode</title>
+    <link rel="icon" th:href="@{../../image/code-solid.svg}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{../../css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{../../css/css.css}">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <style>
+        h2{
+            font-family: "Montserrat", sans-serif;
+            font-size: 200px;
+            line-height: 1.7;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{/fragments/layout :: header}"></div>
+<div th:replace="~{/fragments/layout :: navbar}"></div>
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center text-primary">Error</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 d-flex">
+            <a th:href="@{/}" class="mr-auto ml-auto"><button type="button" class="btn btn-outline-primary">Trang chủ</button></a>
+        </div>
+    </div>
+</div>
+<div th:replace="~{/fragments/layout :: footer}"></div>
+<a href="" th:replace="~{/fragments/layout :: scrollToTop}"></a>
+
+<script th:src="@{../../js/jquery.min.js}"></script>
+<script th:src="@{../../js/bootstrap.min.js}"></script>
+<script th:src="@{../../js/scroll-to-top.js}"></script>
+</body>
+</html>

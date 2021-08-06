@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách danh mục - EasyCode</title>
+    <link rel="icon" th:href="@{./image/code-solid.svg}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{./css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{./css/css.css}">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+<body>
+<!--Modal-->
+<div th:if="${status != null}" class="modal fade" id="statusSave" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Lưu thành công</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <span style="color: green" th:text="${status}"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">Xác nhận</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <span>Bạn có muốn xoá bài viết?</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <form action="/delete-category">
+                    <input type="hidden" name="id" id="id">
+                    <input type="submit" class="btn btn-danger" value="Xoá">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{/fragments/layout :: header}"></div>
+<div th:replace="~{/fragments/layout :: navbar}"></div>
+
+<div class="container">
+    <div class="row d-flex">
+        <a th:href="@{/create-blog}" class="mr-3 ml-auto mt-3 mb-3">
+            <button type="button" class="btn btn-primary">Bài viết mới</button>
+        </a>
+        <a th:href="@{/create-category}" class="mr-3 mt-3 mb-3">
+            <button type="button" class="btn btn-primary">Danh mục mới</button>
+        </a>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="pl-1 pr-1 text-center" style="width: 5%">STT</th>
+                    <th scope="col" class="text-center" style="width: 80%">Tên danh mục</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="category, index : ${listCategory}">
+                    <td th:text="${index.count}" class="pl-1 pr-1 text-center" style="text-overflow: ellipsis"></td>
+                    <td th:text="${category.name}"></td>
+                    <td class="pr-0">
+                        <a th:href="@{/edit-category(id=${category.getId()})}">
+                            <button class="btn btn-warning">Chỉnh sửa</button>
+                        </a>
+                        <button class="btn btn-danger"  th:onclick="'deleteBlog(' + ${category.getId()} + ');'">Xoá</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{/fragments/layout :: footer}"></div>
+<a href="" th:replace="~{/fragments/layout :: scrollToTop}"></a>
+
+<script th:src="@{./js/jquery.min.js}"></script>
+<script th:src="@{./js/bootstrap.min.js}"></script>
+<script th:src="@{./js/scroll-to-top.js}"></script>
+<script>
+    function deleteBlog(id){
+        document.getElementById("id").value = id;
+        $("#deleteModal").modal('show');
+    }
+    $(document).ready(function(){
+        $("#statusSave").modal('show');
+    });
+</script>
+</body>
+</html>

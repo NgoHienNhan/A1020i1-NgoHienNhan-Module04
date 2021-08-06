@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Giới thiệu bản thân - EasyCode</title>
+    <link rel="icon" th:href="@{./image/code-solid.svg}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{./css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{./css/css.css}">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+<body>
+<div th:replace="~{/fragments/layout :: header}"></div>
+<div th:replace="~{/fragments/layout :: navbar}"></div>
+
+<div class="container pt-3 pb-4">
+    <div class="row">
+        <div class="col-9">
+
+        </div>
+        <div class="col-3">
+            <div class="row">
+                <div class="col-12 position-relative" style="height: 500px; background-color: #d9d6d6">
+                    <p class="position-relative text-center w-100" style="top: 50%">285x500</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{/fragments/layout :: footer}"></div>
+<a href="" th:replace="~{/fragments/layout :: scrollToTop}"></a>
+
+<script th:src="@{./js/jquery.min.js}"></script>
+<script th:src="@{./js/popper.min.js}"></script>
+<script th:src="@{./js/bootstrap.min.js}"></script>
+<script th:src="@{./js/scroll-to-top.js}"></script>
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="popover"]').popover({
+            placement : 'bottom',
+            trigger : 'hover'
+        });
+    });
+</script>
+</body>
+</html>

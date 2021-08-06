@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chỉnh sửa bài viết - My Blog</title>
+    <link rel="icon" th:href="@{../../image/code-solid.svg}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{../../css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{../../css/css.css}">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+<body>
+<div th:replace="~{/fragments/layout :: header}"></div>
+<div th:replace="~{/fragments/layout :: navbar}"></div>
+<div class="container-fluid pt-3 pb-4">
+    <div class="row">
+        <div class="col-12">
+            <form th:action="@{/edit-blog}" method="post" th:object="${blog}">
+                <input type="hidden" th:field="*{id}">
+                <input type="hidden" th:if="${idIP != null}" th:value="${idIP}" name="id">
+                <div class="form-row">
+                    <div class="form-group col-9">
+                        <label for="title">Tiêu đề</label>
+                        <input th:field="*{title}" class="form-control" type="text" id="title" >
+                        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color: red">Không được để trống và tối đa 255 kí tự</span>
+                    </div>
+                    <div class="form-group col-3">
+                        <label for="title">Danh mục</label>
+                        <select th:field="*{category}" class="form-control" required>
+                            <option value="">--Lựa chọn--</option>
+                            <option th:each="ob : ${listCategory}" th:value="${ob.id}" th:text="${ob.name}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-9">
+                        <label for="URLTitle">URL tiêu đề</label>
+                        <input th:field="*{URLTitle}" class="form-control" type="text" id="URLTitle">
+                        <span th:if="${#fields.hasErrors('URLTitle')}" th:errors="*{URLTitle}" style="color: red">Không được để trống và tối đa 255 kí tự</span>
+                        <span th:if="${statusURLTitle != null}" th:text="${statusURLTitle}" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="content">Nội dung</label>
+                    <textarea th:field="*{content}" class="form-control" id="content"  rows="15"></textarea>
+                    <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}" style="color: red">Không được để trống</span>
+                </div>
+                <div class="d-flex">
+                    <input type="submit" class="btn btn-primary ml-auto mr-2" value="Cập nhập">
+                    <a th:href="@{/}" class="mr-auto ml-2">
+                        <button type="button" class="btn btn-secondary">Trở lại</button>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{/fragments/layout :: footer}"></div>
+<a href="" th:replace="~{/fragments/layout :: scrollToTop}"></a>
+
+<script th:src="@{/../../js/jquery.min.js}"></script>
+<script th:src="@{/../../js/popper.min.js}"></script>
+<script th:src="@{/../../js/bootstrap.min.js}"></script>
+<script th:src="@{/../../js/scroll-to-top.js}"></script>
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="popover"]').popover({
+            placement : 'bottom',
+            trigger : 'hover'
+        });
+    });
+</script>
+</body>
+</html>

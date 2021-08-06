@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chỉnh sửa danh mục - EasyCode</title>
+    <link rel="icon" th:href="@{./image/code-solid.svg}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{./css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{./css/css.css}">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+<body>
+<div th:replace="~{/fragments/layout :: header}"></div>
+<div th:replace="~{/fragments/layout :: navbar}"></div>
+
+<div class="container pt-3 pb-4">
+    <div class="row">
+        <div class="col-12">
+            <form th:action="@{/edit-category}" method="post" th:object="${category}">
+                <input type="hidden" th:field="*{id}">
+
+                <div class="form-group">
+                    <label for="name">Tên danh mục</label>
+                    <input th:field="*{name}" class="form-control" type="text" id="name" >
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red">Không được để trống và tối đa 255 kí tự</span>
+                </div>
+                <div class="form-group">
+                    <label for="URLname">URL danh mục</label>
+                    <input th:field="*{URLName}" class="form-control" type="text" id="URLname" >
+                    <span th:if="${#fields.hasErrors('URLName')}" th:errors="*{URLName}" style="color: red">Không được để trống và tối đa 50 kí tự</span>
+                    <span th:if="${statusURLName != null}" th:text="${statusURLName}" class="text-danger"></span>
+                </div>
+                <div class="d-flex">
+                    <input type="submit" class="btn btn-primary ml-auto mr-2" value="Cập nhập">
+                    <a th:href="@{/list-category}" class="mr-auto ml-2">
+                        <button type="button" class="btn btn-secondary">Trở lại</button>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{/fragments/layout :: footer}"></div>
+<a href="" th:replace="~{/fragments/layout :: scrollToTop}"></a>
+
+<script th:src="@{./js/jquery.min.js}"></script>
+<script th:src="@{./js/bootstrap.min.js}"></script>
+<script th:src="@{./js/scroll-to-top.js}"></script>
+</body>
+</html>
